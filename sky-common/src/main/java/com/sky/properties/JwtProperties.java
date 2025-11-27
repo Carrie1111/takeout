@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "sky.jwt")
+@ConfigurationProperties(prefix = "sky.jwt")// 这个玩意配置在application.yml里，就是下面jwt令牌对应的三个属性
 @Data
 public class JwtProperties {
 

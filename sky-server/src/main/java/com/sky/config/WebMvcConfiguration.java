@@ -1,3 +1,6 @@
+// 这个主要是用knife4j这个工具生成接口文档，管理接口。
+// 解析了employeecontroller的两个方法，生成了两个接口login和logout
+// http://localhost:8080/doc.html#/home 可以看这个文档
 package com.sky.config;
 
 import com.sky.interceptor.JwtTokenAdminInterceptor;
@@ -43,6 +46,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      */
     @Bean
     public Docket docket() {
+//        log.info("准备生成接口文档。。。");
         ApiInfo apiInfo = new ApiInfoBuilder()
                 .title("苍穹外卖项目接口文档")
                 .version("2.0")
