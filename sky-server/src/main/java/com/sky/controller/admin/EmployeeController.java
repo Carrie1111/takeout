@@ -76,6 +76,11 @@ public class EmployeeController {
         return Result.success();
     }
 
+    /**
+     * 新增员工
+     * @param employeeDTO
+     * @return
+     */
     @PostMapping// 这个注释看接口类型，是post就用这个注解，路径在上面方法已经加过了这里就不用写了
     @ApiOperation("新增员工")
     public Result save(@RequestBody EmployeeDTO employeeDTO) {
@@ -84,12 +89,55 @@ public class EmployeeController {
         employeeService.save(employeeDTO);
         return Result.success();// 返回保存成功和失败的结果，Result类就定义的这些
     }
-
+    /**
+     * 员工分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
     @GetMapping("/page")
     @ApiOperation("员工分页查询")
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {
         log.info("员工分页查询，参数为：{}", employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
+    /**
+     * 启用、禁用员工账号
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用、禁用员工账号")
+    // @PathVariable这个注解就是从接口URL里提取出来当前的status
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        log.info("启用、禁用员工账号：{}, {}", status, id);
+        employeeService.startOrStop(status, id);
+        return Result.success();
+    }
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工")
+    public Result<Employee> getById(@PathVariable Long id) {
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     * @return
+     * RequestBody是接收前端发回json格式需要的注解
+     */
+    @PutMapping
+    @ApiOperation("编辑员工信息")
+    public Result update(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("编辑员工信息：{}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
     }
 }
