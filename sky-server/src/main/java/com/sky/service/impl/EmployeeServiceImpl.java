@@ -81,11 +81,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         // Employee多出来的属性要手动设置，前端传过来的DTO里没有
         employee.setStatus(StatusConstant.ENABLE);// 账号的可用状态。直接写1是硬编码不利于维护，所以设置了状态常量类，有两个状态
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));// 密码为默认并且加密
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-        // 从ThreadLocal里取出当前登录用户的id
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        // 这部分公共字段填充功能通过AOP完成了
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
+//        // 从ThreadLocal里取出当前登录用户的id
+//        employee.setCreateUser(BaseContext.getCurrentId());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);// 放进数据库
     }
@@ -145,8 +146,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);// 对象属性拷贝
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        // 这两个公共字段填充也通过AOP完成了
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
         employeeMapper.update(employee);
     }
 }
