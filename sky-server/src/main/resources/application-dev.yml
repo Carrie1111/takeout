@@ -1,4 +1,6 @@
-# 这里面对应是application.yml里写的数据库连接信息
+# 这里面对应是application.yml里对应的具体配置信息，application.yml里对应写了spring:
+#  profiles:
+#    active: dev，如果写个application-prod.yml，把这里配置成prod，就可以直接用另一套配置而不直接在application.yml里改
 sky:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -7,3 +9,8 @@ sky:
     database: sky_take_out
     username: root
     password: 123456
+  alioss:
+    endpoint: oss-cn-shanghai.aliyuncs.com
+    access-key: ${ALIBABA_ACCESS_KEY_ID}
+    access-key-secret: ${ALIBABA_ACCESS_KEY_SECRET}
+    bucket-name: sky-take-out-of-0901
