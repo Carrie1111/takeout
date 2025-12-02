@@ -4,6 +4,11 @@
 <mapper namespace="com.sky.mapper.DishFlavorMapper">
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
         insert into dish_flavor(dish_id, name, value) VALUES
+        <!--
+            collection="flavors" : 遍历的集合，对应Java方法的参数名
+            item="df"            : 集合中每个元素的别名
+            separator=","        : 每个元素之间的分隔符（生成value1, value2, value3）
+        -->
         <foreach collection="flavors" item="df" separator=",">
             (#{df.dishId}, #{df.name}, #{df.value})
         </foreach>

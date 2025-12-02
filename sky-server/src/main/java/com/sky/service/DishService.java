@@ -9,7 +9,6 @@ import com.sky.vo.DishVO;
 import java.util.List;
 
 public interface DishService {
-
     /**
      * 新增菜品和对应口味
      * @param dishDTO
@@ -41,4 +40,27 @@ public interface DishService {
      * @param dishDTO
      */
     void updateWithFlavor(DishDTO dishDTO);
+
+    /**
+     * 根据分类id查看菜品
+     * @param categoryId
+     * @return
+     */
+    List<Dish> list(long categoryId);
+
+    /**
+     * 根据菜品ID查询关联的套餐ID列表
+     * @param dishId 菜品ID
+     * @return 套餐ID列表
+     */
+    List<Long> getSetmealIdsByDishId(Long dishId);
+
+    /**
+     * 起售停售菜品
+     * @param status
+     * @param id
+     * @return
+     */
+    void startOrStop(Integer status, Long id);
+
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.SetmealDishMapper">
+    <insert id="insertBatch" parameterType="list">
+        <!--
+            套餐菜品关系表批量插入 - 不需要获取自增ID
+            原因：
+            1. 业务逻辑只需要知道关系存在，不需要操作具体的关系记录ID
+            2. 通过setmeal_id和dish_id就能唯一确定关系
+            3. 没有单独删除或修改某条关系记录的需求
+        -->
+        insert into setmeal_dish(setmeal_id, dish_id, name, price, copies) values
+        <foreach collection="list" item="sd" separator=",">
+            (#{sd.setmealId}, #{sd.dishId}, #{sd.name}, #{sd.price}, #{sd.copies})
+        </foreach>
+    </insert>
+</mapper>
