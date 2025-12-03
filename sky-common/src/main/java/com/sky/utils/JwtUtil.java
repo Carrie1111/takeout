@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Map;
 
+// 工具类就是很专、不涉及业务流程的通用工具
 public class JwtUtil {
     /**
      * 生成jwt

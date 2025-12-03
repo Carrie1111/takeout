@@ -6,6 +6,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "sky.jwt")// 这个玩意配置在application.yml里，就是下面jwt令牌对应的三个属性
+/**
+ * @Data 是 Lombok 提供的注解，它会自动生成：
+ * 所有字段的 getter/setter
+ * toString()
+ * equals() 和 hashCode()
+ * 一个全参构造（不是所有情况）
+ * 一个无参构造
+ */
 @Data
 public class JwtProperties {
 
