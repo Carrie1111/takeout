@@ -8,6 +8,7 @@ import com.sky.vo.DishItemVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,8 @@ public class SetmealController {
      */
     @GetMapping("/list")
     @ApiOperation("根据分类id查询套餐")
+    @Cacheable(cacheNames = "setmealCache", key = "#categoryId") // Spring Cache 默认会把 cacheName + "::" + key 拼起来作为 Redis 的实际 key：
+    // 如果查询内容在缓存里，直接走注解就查出来了，不用走数据库的查询方法（所以在方法里打断点，有缓存的东西重复查询，断点处不会执行）
     public Result<List<Setmeal>> list(Long categoryId) {
         Setmeal setmeal = new Setmeal();
         setmeal.setCategoryId(categoryId);
